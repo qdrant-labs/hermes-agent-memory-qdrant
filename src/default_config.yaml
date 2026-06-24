@@ -1,0 +1,39 @@
+# Qdrant memory plugin: default configuration.
+#
+# Default settings. Copy the relevant blocks into ~/.hermes/config.yaml
+# to override. Don't edit this file directly. A plugin update will overwrite it.
+
+# Activate the plugin (Hermes-level setting, not under plugins.qdrant):
+memory:
+  provider: qdrant
+
+plugins:
+  qdrant:
+    connection:
+      # mode: local (embedded, file-based, no server) or remote (Qdrant server).
+      # local:  QdrantClient(path=...), data at ~/.hermes/qdrant/.
+      # remote: set url and optionally api_key_env.
+      #         Run a server: docker run -p 6333:6333 qdrant/qdrant
+      mode: local
+      path: null          # local only: override storage path (default: ~/.hermes/qdrant)
+      url: null           # remote only: e.g. http://localhost:6333 or https://xyz.cloud.qdrant.io
+      api_key_env: null   # remote only: env var holding the Qdrant API key (optional for local server)
+
+    embedding:
+      # Local embeddings via fastembed. No API key needed. Models download on first use.
+      # NOTE: changing the model (or its dimension) against an existing collection
+      # requires recreating it. Delete ~/.hermes/qdrant/ to start fresh.
+      provider: fastembed
+      model: BAAI/bge-small-en-v1.5   # 384 dimensions, fast, good quality
+      sparse_model: Qdrant/bm25       # BM25 sparse vectors for hybrid search
+
+    retrieval:
+      # mode: vector (default): pure ANN over dense embeddings, lightest.
+      #        hybrid: dense + BM25 sparse fused via RRF.
+      mode: vector
+      top_k: 10
+      search_kinds: [fact]    # row kinds recall returns. "turn" rows are provenance/fallback
+
+    extraction:
+      enabled: true           # set false to disable LLM fact extraction at session boundaries
+      min_turns: 3            # skip extraction for very short sessions

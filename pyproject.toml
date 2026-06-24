@@ -1,0 +1,40 @@
+[project]
+name = "hermes-agent-memory-qdrant"
+version = "0.1.0"
+description = "Qdrant-backed memory provider plugin for Hermes Agent."
+requires-python = ">=3.11"
+license = "Apache-2.0"
+authors = [
+    { name = "Qdrant Team <info@qdrant.tech>" },
+]
+dependencies = [
+    "qdrant-client>=1.18.0",
+    "pyyaml>=6.0.3",
+    "fastembed>=0.8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "ruff>=0.15.19",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+pythonpath = ["../hermes-agent"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "ruff>=0.15.19",
+]
