@@ -50,6 +50,8 @@ plugins:
 
     embedding:
       provider: fastembed
+      # Find the list of all supported models at
+      # https://qdrant.github.io/fastembed/examples/Supported_Models/
       model: BAAI/bge-small-en-v1.5
       sparse_model: Qdrant/bm25
 

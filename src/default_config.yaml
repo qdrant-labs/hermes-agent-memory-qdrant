@@ -23,6 +23,8 @@ plugins:
       # Local embeddings via fastembed. No API key needed. Models download on first use.
       # NOTE: changing the model (or its dimension) against an existing collection
       # requires recreating it. Delete ~/.hermes/qdrant/ to start fresh.
+      # Find the list of all supported models at
+      # https://qdrant.github.io/fastembed/examples/Supported_Models/
       provider: fastembed
       model: BAAI/bge-small-en-v1.5   # 384 dimensions, fast, good quality
       sparse_model: Qdrant/bm25       # BM25 sparse vectors for hybrid search

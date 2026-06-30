@@ -1,7 +1,3 @@
-"""hermes-agent-memory-qdrant: Qdrant-backed MemoryProvider plugin for Hermes Agent."""
-
-from __future__ import annotations
-
 if not __package__:
     import importlib
     import sys
